@@ -1,5 +1,11 @@
 import java.util.ArrayList;
 import java.util.HashSet;
+/**
+ * handler class that include two GNode tool
+ *
+ * @author Zhangqi Luo
+ * @version 1.0
+ */
 class GNodeHandler {
 	/**
 	 * walk through acyclic graph by recursion

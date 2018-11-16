@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import java.util.HashSet;
 class GNodeHandler {
+	/**
+	 * walk through acyclic graph by recursion
+	 * @param gnode input node in graph
+	 * @return all nodes in a graph
+	 */
 	public ArrayList<GNode> walkGraph(GNode gnode){
 		HashSet<GNode> set = new HashSet<GNode>();
 		walkGraphDFS(gnode, set);
@@ -10,6 +15,12 @@ class GNodeHandler {
 		}
 		return res;
 	}
+
+	/**
+	 * helper function of walk graph recursion
+	 * @param gnode current node
+	 * @param set hashset for preventing unnnecessary traverse
+	 */
 	private void walkGraphDFS (GNode gnode, HashSet<GNode> set) {
 		if (gnode == null || set.contains(gnode)) {
 			return;
@@ -20,7 +31,11 @@ class GNodeHandler {
 		}
 	}
 
-
+	/**
+	 * paths builder starting from given node
+	 * @param gnode gnode to start
+	 * @return arraylist of GNode path
+	 */
 	public ArrayList<ArrayList<GNode>> paths (GNode gnode){
 		ArrayList<ArrayList<GNode>> out = new ArrayList<ArrayList<GNode>>();
 		pathsBuilder(new ArrayList<GNode>(), gnode,
@@ -28,6 +43,13 @@ class GNodeHandler {
 		return out;
 	}
 
+	/**
+	 * path builder that support DFS
+	 * @param stack path builder
+	 * @param current current node
+	 * @param set prevent traverse back
+	 * @param out arraylist for storing path
+	 */
 	private void pathsBuilder (ArrayList<GNode> stack, GNode current,
 	 HashSet<GNode> set, ArrayList<ArrayList<GNode>> out) {
 		if (current.getChildren().length <= 1) {

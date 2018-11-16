@@ -10,7 +10,12 @@ import static junit.framework.TestCase.fail;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
+/**
+ * Junit test of GNode tools
+ *
+ * @author Zhangqi Luo
+ * @version 1.0
+ */
 public class GNodeHandlerTest {
 
     private class TestNode implements GNode {

@@ -10,23 +10,41 @@ import static junit.framework.TestCase.fail;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 public class GNodeHandlerTest {
 
     private class TestNode implements GNode {
         private String name;
         private GNode[] children = new GNode[]{};
+
+        /**
+         * constructor of testnode
+         * @param name name of gnode
+         */
         public TestNode (String name) {
             this.name = name;
         }
+
+        /**
+         * implement getName in GNode
+         * @return
+         */
         @Override
         public String getName(){
             return name;
         }
+        /**
+         * implement getChildren in GNode
+         * @return
+         */
         @Override
         public GNode[] getChildren(){
             return children;
         }
-
+        /**
+         * setChildren in testNode
+         * @return
+         */
         public void setChildren(GNode[] nodes){
             this.children = nodes;
         }
@@ -36,6 +54,9 @@ public class GNodeHandlerTest {
     private List<TestNode> testGraphNodes;
     private Set<String> nodeNames;
 
+    /**
+     * init graph for testing
+     */
     @Before
     public void setUp() {
         handler = new GNodeHandler();
@@ -44,6 +65,11 @@ public class GNodeHandlerTest {
 
 
     }
+
+    /**
+     * test graph initializer
+     * @return build the acyclic graph and append children
+     */
     private List<TestNode> initTestGraph() {
         List<TestNode> nodes = new ArrayList<TestNode>();
         for(int i = 0; i < 10; i++) {
@@ -52,7 +78,7 @@ public class GNodeHandlerTest {
         }
 
         /*
-        A is 0 ... J is 9
+        A is in 0 index of GNode list ... J is in 9 index of GNode list
         A
             B
                 E
@@ -81,7 +107,9 @@ public class GNodeHandlerTest {
         return nodes;
     }
 
-
+    /**
+     * test walkGraph by a single node graph with zero children
+     */
     @Test
     public void SingleNodeWalk() {
         GNode test = new TestNode("single");
@@ -89,21 +117,35 @@ public class GNodeHandlerTest {
         assertEquals(1, out.size());
         assertTrue(out.get(0).getName().equals("single"));
     }
+    /**
+     * test walkGraph by walking from A
+     */
     @Test
     public void GNodeWalkA() {
         GNodeWalkHelper('A');
 
     }
+    /**
+     * test walkGraph by walking from C
+     */
     @Test
     public void GNodeWalkC() {
         GNodeWalkHelper('C');
 
     }
+    /**
+     * test walkGraph by walking from J
+     */
     @Test
     public void GNodeWalkJ() {
         GNodeWalkHelper('J');
 
     }
+
+    /**
+     * helper function of walkGraph
+     * @param c character to start
+     */
     private void GNodeWalkHelper(char c) {
         List<GNode> out = handler.walkGraph(testGraphNodes.get(c -'A'));
         assertEquals(10, out.size());
@@ -116,6 +158,10 @@ public class GNodeHandlerTest {
         }
         assertTrue(checkOutput.size() == 0);
     }
+
+    /**
+     * test path builder with single node that has no children
+     */
     @Test
     public void SingleNodePath() {
         GNode test = new TestNode("single");
@@ -124,6 +170,9 @@ public class GNodeHandlerTest {
         assertEquals(1, out.get(0).size());
         assertTrue(out.get(0).get(0).getName().equals("single"));
     }
+    /**
+     * test path construction from A
+     */
     @Test
     public void GNodePathA() {
         // paths(A) = ( (A B E) (A B F) (A C G) (A C H) (A C I) (A D J) )
